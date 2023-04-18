@@ -1,14 +1,16 @@
-var timer = document.querySelector("timer");
+var timerEl = document.getElementById("countdown");
 
-function timeRemaining() {
+function countdown() {
     var timeLeft = 90;
     var timeInterval = setInterval(function(){
-        if(timeLeft>0){
-            timer.textContent = timeLeft;
+        if(timeLeft>1){
+            timerEl.textContent = timeLeft;
             timeLeft--;
         }else {
-            timer.textContent="";
+            timerEl.textContent='';
             clearInterval(timeInterval);
         }   
     }, 1000);
 }
+
+countdown();
