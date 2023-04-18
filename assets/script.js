@@ -4,7 +4,7 @@ function countdown() {
     var timeLeft = 90;
     var timeInterval = setInterval(function(){
         if(timeLeft>1){
-            timerEl.textContent = timeLeft;
+            timerEl.textContent = 'Timer: ' + timeLeft;
             timeLeft--;
         }else {
             timerEl.textContent='';
