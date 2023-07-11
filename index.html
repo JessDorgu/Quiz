@@ -5,64 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Challenge</title>
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
     <nav id="navbar">
         <a href="highscore.html">View High Scores</a>
         <p id="countdown"></p>
     </nav>
-    <h1> JavaScript Quiz Challenge</h1>
+    <h1> Coding Quiz Challenge</h1>
     <p>Answer the following multiple choice questions about JavaScript. <br>If you get an asnwer wrong time will be deducted from your score.</p>
     <button id="start-quiz">Start Quiz</button>
-<div class="questions">
-    <div id="q1">
-        <h2>Ask some question?</h2>
-        <ul>
-            <li><button>answer 1</button></li>
-            <li><button>answer 2</button></li>
-            <li><button>answer 3</button></li>
-            <li><button>answer 4</button></li>
-        </ul>
-    </div>
-    <div id="q2">
-        <h2>Ask some question?</h2>
-        <ul>
-            <li><button>answer 1</button></li>
-            <li><button>answer 2</button></li>
-            <li><button>answer 3</button></li>
-            <li><button>answer 4</button></li>
-        </ul>
-    </div>
 
-    <div id="q3">
-        <h2>Ask some question?</h2>
-        <ul>
-            <li><button>answer 1</button></li>
-            <li><button>answer 2</button></li>
-            <li><button>answer 3</button></li>
-            <li><button>answer 4</button></li>
-        </ul>
-    </div>
-    <div id="q4">
-        <h2>Ask some question?</h2>
-        <ul>
-            <li><button>answer 1</button></li>
-            <li><button>answer 2</button></li>
-            <li><button>answer 3</button></li>
-            <li><button>answer 4</button></li>
-        </ul>
-    </div>
-    <div id="q5">
-        <h2>Ask some question?</h2>
-        <ul>
-            <li><button>answer 1</button></li>
-            <li><button>answer 2</button></li>
-            <li><button>answer 3</button></li>
-            <li><button>answer 4</button></li>
-        </ul>
-    </div>
 
 </div>
+
+
+<div id="app">
+    <h1>header</h1>
+    <div class="quizsection">
+    <h2 class="question">Question goes here</h2>
+    <div class="choice">
+        <button class="btn">answer 1</button>
+        <button class="btn">answer 2</button>
+        <button class="btn">answer 3</button>
+        <button class="btn">answer 4</button>
+    </div>
+    <div class="answer"></div>
+    </div>
+</div>
+
 
     <h1>All Done!</h1>
     <p id="final-score"></p>
