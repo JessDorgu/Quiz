@@ -23,60 +23,76 @@ function countdown() {
 var questions = [ 
 
     {
-        id:1,
-        quesiton : "What does JavaScript do?",
-        choice :["Make the page look nice",
-        "Make the page dynamic",
-        "Add structure to the document"],
-        answer : "Make the page dynamic",
+        question : "What does JavaScript do?",
+        choice :[{text:"Make the page look nice", correct:false},{text:
+        "Make the page dynamic", correct:true},{text:
+        "Add structure to the document",correct:false},{text:"All of the above", correct:false}],
     
     },
     
     {
-        id:2,
+
         question: "How do you link a JAvaScript file?",
-        choice: ["<script>", "<a href>","<link>"],
-        answer : "<script>",
+        choice: [{text:"<script>", correct:true},{text: "<a href>", correct:false},{text:"<link>", correct:false},{text:"<img>", correct:false}],
     
     },
     
     {
-        id:3,
         question : "What keyword is the most used?",
-        choice: ["let", "var", "const"],
-        answer : "let",
+        choice: [{text:"let", correct:true},{text: "var", correct:false},{text: "const", correct:false}, {text:"new", correct:false}],
     
     },
     
     {
-        id:4,
         question : "Which statement is true?",
-        choice: ["Methods and functions are the same",
-        "Functions are created inside and are a part of an object",
-        "Methods are the same as functions but are created inside (and a part of) an object"],
-        answer : "Methods are the same as functions but are created inside (and a part of) an object",
+        choice: [{text:"Methods and functions are the same", correct:false},
+        {text:"Functions are created inside and are a part of an object",correct:false},
+        {text:"Methods are the same as functions but are created inside (and a part of) an object",correct:true}, {text:"None of the above", correct:false}],
     
     },
     
-    {
-        id:5,
-        question : "In an object variables become known as properties?",
-        choice: ["true","false"],
-        answer : "false",
+    // {
+    //     id:5,
+    //     question : "In an object variables become known as properties?",
+    //     choice: ["true","false"],
+    //     answer : "false",
     
-    },
+    // },
     
-    {
-        id:6,
-        question : "In an object funcitons become known as methods?",
-        choice: ["true","false"],
-        answer : "true",
+    // {
+    //     id:6,
+    //     question : "In an object funcitons become known as methods?",
+    //     choice: ["true","false"],
+    //     answer : "true",
     
-    },
+    // },
 
 ];
 
-console.log(questions);
-console.log(questions.answer);
 
+var questionEl = document.getElementById("question");
+var choiceEl = document.getElementById("choice-buttons");
 
+var currentQuestionIndex=0;
+var score=0;
+
+function startQuiz(){
+    currentQuestionIndex=0;
+    score=0;
+    showQuesiton();
+}
+
+function showQuesiton(){
+    var currentQuestion =questions[currentQuestionIndex];
+    var questionNo = currentQuestionIndex+1;
+    questionEl.innerHTML= questionNo + "." + currentQuestion.question;
+currentQuestion.choice.forEach(choice =>{
+    var button= document.createElement("button");
+    button.innerHTML = choice.text;
+    button.classList.add("btn");
+    choiceEl.appendChild(button);
+});
+
+}
+
+startQuiz();
