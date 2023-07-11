@@ -1,0 +1,58 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: whitesmoke;
+}
+
+#app{
+    background: white;
+    width: 90%;
+    max-width:600px;
+    margin: 10px auto 0;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+
+/* will get rid of in my final */
+#app h1 {
+    font-weight:25px;
+    color: orange;
+    font-weight: 600;
+    border-bottom: 1px solid yellow;
+    padding-bottom:30px ;
+}
+
+.quizsection{
+    padding: 20px 0;
+}
+
+.quizsection h2{
+    font-size: 18px;
+    color: purple;
+    font-weight: 600;
+}
+
+.btn{
+    background: white;
+    color:pink;
+    font-weight: 500;
+    width: 100%;
+    border: 1px solid pink;
+    padding:10px;
+    margin:10px 0;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+}
+
+.btn:hover{
+    background: lightblue;
+    color: aliceblue;
+}
