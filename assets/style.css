@@ -52,7 +52,19 @@ body{
 
 }
 
-.btn:hover{
+.btn:hover:not([disabled]){
     background: lightblue;
     color: aliceblue;
+}
+
+.btn:disabled{
+    cursor: no-drop;
+
+}
+.correct{
+    background: green;
+}
+
+.incorrect{
+    background: red;
 }

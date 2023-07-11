@@ -1,11 +1,11 @@
 // code for the timer to display and run
 var timerEl = document.getElementById("countdown");
 var startEl = document.getElementById("start-quiz");
-
+var timeLeft = 90;
 
 startEl.addEventListener('click',
 function countdown() {
-    var timeLeft = 90;
+    // var timeLeft = 90;
     var timeInterval = setInterval(function(){
         if(timeLeft>1){
             timerEl.textContent = 'Timer: ' + timeLeft;
@@ -91,8 +91,29 @@ currentQuestion.choice.forEach(choice =>{
     button.innerHTML = choice.text;
     button.classList.add("btn");
     choiceEl.appendChild(button);
+    if(choice.correct){
+        button.dataset.correct= choice.correct;
+    }
+    button.addEventListener("click",selectAnswer);
 });
 
 }
+
+function selectAnswer(e){
+    var selectedBtn = e.target;
+    var isCorrect= selectedBtn.dataset.correct=== "true";
+    if(isCorrect){
+        selectedBtn.classList.add("correct");
+        score++;
+
+    }else{selectedBtn.classList.add("incorrect")};
+    timeLeft-=10;
+}
+Array.from(choiceEl.children).forEach(button=>{
+    if(button.dataset.correct ==="true"){
+        button.classList.add("correct");
+    }
+    button.disabled = true;
+});
 
 startQuiz();
