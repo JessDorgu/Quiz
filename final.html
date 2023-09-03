@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Quiz</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <nav id="navbar">
+        <p id="countdown"></p>
+    </nav>
+
+    <div id="info-page">
+        <h1>Coding Quiz Challenge</h1>
+        <p>Answer the following multiple-choice questions about JavaScript. <br>If you get an answer wrong, time will be deducted from your score.</p>
+        <button id="start-quiz">Start Quiz</button>
+    </div>
+
+    <div class="app" id="app">
+        <div id="question-container" class="hide">
+            <div id="question" class="hide">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <!-- answers generated here-->
+            </div>
+        </div>
+
+        <div class="controls">
+        </div>
+        <div id="rightOrWrong"></div>
+
+        </div>
+        <div id="complete" class="hide">
+            <div id="high-score">
+                <h2>Your High Score is: <span id="final_score"></span></h2>
+                <form id="initials-form">
+                    <label for="initials">Enter your initials:</label>
+                    <input type="text" id="initials" name="initials" maxlength="3" required>
+                    <button type="submit" id="submit-initials">Submit</button>
+                </form>
+                <div id="display-high-score"></div>
+            </div>
+        
+        
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+           // basics
+
+var timerEl = document.getElementById("countdown");
+var startEl = document.getElementById("start-quiz");
+var timeLeft = 90;
+var scoreEl = document.querySelector("#score"); 
+
+startEl.addEventListener('click', quizScreen); 
+var startPage = document.querySelector("#info-page");
+var appEl = document.querySelector("#app");
+var questionEl = document.querySelector("#question");
+var choicesEl = document.querySelector("#choice-buttons");
+var currentQuestionIndex = 0;
+var gameOverEl = document.querySelector("#complete");
+var endScoreEl = document.getElementById("final_score");
+
+var score = 0;
+var initialsForm = document.getElementById("initials-form");
+var initialsInput = document.getElementById("initials");
+var submitInitialsBtn = document.getElementById("submit-initials");
+var displayHighScore = document.getElementById("display-high-score");
+
+var playBtn = document.querySelector(".playAgain");
+var startButton = document.getElementById("start-quiz");
+var questionContainer = document.getElementById("question-container");
+var questionDiv = document.getElementById("question");
+var nextButton = document.getElementById("next-btn");
+
+var rightOrWrong = document.querySelector("#rightOrWrong");
+var timeInterval; 
+
+
+function init() {
+    play();
+}
+
+var questions = [
+    {
+        question : "What does JavaScript do?",
+        choice :[{text:"Make the page look nice", correct:false},{text:
+        "Make the page dynamic", correct:true},{text:
+        "Add structure to the document",correct:false},{text:"All of the above", correct:false}],
+    
+    },
+    
+    {
+    question: "What does HTML stand for?",
+    choice: [
+        { text: "Hyper Text Markup Language", correct: true },
+        { text: "Highly Technical Machine Learning", correct: false },
+        { text: "Home Tool Markup Language", correct: false },
+        { text: "Hyperlink and Text Manipulation Language", correct: false }
+    ]
+},
+
+    {
+
+        question: "How do you link a JAvaScript file?",
+        choice: [{text:"<script>", correct:true},{text: "<a href>", correct:false},{text:"<link>", correct:false},{text:"<img>", correct:false}],
+    
+    },
+    
+    {
+        question : "What keyword is the most used?",
+        choice: [{text:"let", correct:true},{text: "var", correct:false},{text: "const", correct:false}, {text:"new", correct:false}],
+    
+    },
+    {
+    question: "Which HTML element is used to create a hyperlink?",
+    choice: [
+        { text: "<a>", correct: true },
+        { text: "<link>", correct: false },
+        { text: "<h1>", correct: false },
+        { text: "<p>", correct: false }
+    ]
+},
+
+    {
+        question : "Which statement is true?",
+        choice: [{text:"Methods and functions are the same", correct:false},
+        {text:"Functions are created inside and are a part of an object",correct:false},
+        {text:"Methods are the same as functions but are created inside (and a part of) an object",correct:true}, {text:"None of the above", correct:false}],
+    
+    },
+];
+
+function play() {
+    startPage.style.display = "block";
+    appEl.style.display = "none";
+    gameOverEl.style.display = "none";
+}
+
+function quizScreen() {
+    startPage.style.display = "none";
+    appEl.style.display = "block";
+    gameOverEl.style.display = "none";
+
+    showQuestion();
+    countdown();
+}
+
+startButton.addEventListener("click", function () {
+    questionContainer.classList.remove("hide");
+    questionDiv.classList.remove("hide");
+});
+
+function gameOverScreen() {
+    startPage.style.display = "block";
+    appEl.style.display = "none";
+    gameOverEl.style.display = "block";
+}
+
+function showQuestion() {
+    var currentQuestion = questions[currentQuestionIndex];
+    var questionNo = currentQuestionIndex + 1;
+    questionEl.textContent = questionNo + ". " + currentQuestion.question;
+    showChoices(currentQuestion);
+}
+
+function showChoices(currentQuestion) {
+    var answerButtons = document.getElementById("answer-buttons");
+    answerButtons.innerHTML = ""; 
+    for (var i = 0; i < currentQuestion.choice.length; i++) {
+        var choiceBtn = document.createElement("button");
+        choiceBtn.textContent = currentQuestion.choice[i].text;
+        choiceBtn.classList.add("btn"); 
+        choiceBtn.addEventListener("click", function (event) {
+            checkSelection(event, currentQuestion);
+        });
+        answerButtons.appendChild(choiceBtn);
+    }
+}
+
+function checkSelection(event) {
+    var clickedBtn = event.target;
+    var textFromBtn = clickedBtn.textContent;
+    var correctChoice = questions[currentQuestionIndex].choice.find(choice => choice.correct).text;
+
+    if (textFromBtn === correctChoice) {
+        rightOrWrong.textContent = "Correct!";
+    } else {
+        rightOrWrong.textContent = "Incorrect!";
+        timeLeft -= 10;
+        if (timeLeft < 0) {
+            timeLeft = 0; 
+        }
+    }
+    timerEl.textContent = 'Timer: ' + timeLeft;
+    showNext();
+}
+
+function showNext(){
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        endQuiz();
+    }
+}
+
+function countdown() {
+    timeInterval = setInterval(function () {
+        if (timeLeft > 0) {
+            timerEl.textContent = 'Timer: ' + timeLeft;
+            timeLeft--;
+        } else {
+            timerEl.textContent = ''; 
+            clearInterval(timeInterval); 
+            endQuiz();
+        }
+    }, 1000);
+}
+
+
+
+
+function endQuiz() {
+    clearInterval(timeInterval);
+    timerEl.textContent = ''; 
+    appEl.style.display = "none";
+    gameOverEl.style.display = "block";
+
+    document.getElementById("high-score").style.display = "block";
+    document.getElementById("complete").classList.remove("hide");
+}
+
+function saveHighScore(initials) {
+    var existingScores = JSON.parse(localStorage.getItem("highScore")) || [];
+    var highScore = {
+        initials: initials,
+        score: timeLeft, 
+    };
+    existingScores.push(highScore);
+
+    existingScores.sort(function (a, b) {
+        return b.score - a.score;
+    });
+
+    localStorage.setItem("highScore", JSON.stringify(existingScores));
+}
+
+
+var initialsForm = document.getElementById("initials-form");
+var initialsInput = document.getElementById("initials");
+var displayHighScore = document.getElementById("display-high-score");
+
+
+initialsForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var initials = initialsInput.value.trim();
+    if (initials !== "") {
+        saveHighScore(initials);
+        showHighScores();
+        initialsInput.value = ""; 
+    } else {
+        alert("Please enter your initials");
+    }
+});
+
+
+function showHighScores() {
+    var highScores = JSON.parse(localStorage.getItem("highScore")) || [];
+    displayHighScore.innerHTML = ""; 
+    for (var i = 0; i < highScores.length; i++) {
+        var highScoreItem = document.createElement("div");
+        highScoreItem.textContent = highScores[i].initials + ": " + highScores[i].score;
+        displayHighScore.appendChild(highScoreItem);
+    }
+}
+
+showHighScores();
+
+init();
+        });
+    </script>
+</body>
+</html>
